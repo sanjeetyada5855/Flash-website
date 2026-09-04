@@ -110,9 +110,18 @@ function newChat(){openChat(prompt('Friend name:','New Friend')||'New Friend')}
 function openProfile(){$('profileModal').style.display='grid'}function closeProfile(){$('profileModal').style.display='none'}
 function toggleTheme(){document.body.style.background=document.body.style.background===''||document.body.style.background==='#070707'?'#202124':'#070707'}
 function showHome(){window.scrollTo({top:0,behavior:'smooth'})}
-</script>
-<script>
- const firebaseConfig = {
+</scrip>
+ <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+const firebaseConfig = {
   apiKey: "AIzaSyC_QE75QCiRJXGL9xew7m1-yQXdZLtvDIY",
   authDomain: "fash-89525.firebaseapp.com",
   projectId: "fash-89525",
@@ -120,6 +129,111 @@ function showHome(){window.scrollTo({top:0,behavior:'smooth'})}
   messagingSenderId: "887751675734",
   appId: "1:887751675734:web:ec4adc251909fe006090f7"
 };
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+/* LOGIN BOX */
+const box = document.createElement("div");
+
+box.innerHTML = `
+<div id="flashAuth" style="
+position:fixed;inset:0;background:#070707;z-index:99999;
+display:flex;align-items:center;justify-content:center;padding:20px;
+font-family:Arial;color:white">
+
+<div style="
+width:100%;max-width:380px;background:#17181c;
+padding:28px;border-radius:22px;text-align:center;
+box-shadow:0 10px 40px #000">
+
+<h1 style="margin:0 0 8px;color:#ffe000">⚡ Flash</h1>
+<p style="color:#aaa">Login or create your account</p>
+
+<input id="flashEmail" type="email" placeholder="Email"
+style="width:100%;box-sizing:border-box;padding:13px;margin:7px 0;
+border:0;border-radius:10px;background:#25262b;color:white">
+
+<input id="flashPassword" type="password" placeholder="Password"
+style="width:100%;box-sizing:border-box;padding:13px;margin:7px 0;
+border:0;border-radius:10px;background:#25262b;color:white">
+
+<button id="flashLogin" style="
+width:100%;padding:13px;margin-top:10px;border:0;border-radius:12px;
+background:#ffe000;color:#111;font-weight:bold;font-size:16px">
+Login
+</button>
+
+<button id="flashSignup" style="
+width:100%;padding:13px;margin-top:10px;border:1px solid #555;
+border-radius:12px;background:transparent;color:white;font-size:16px">
+Create Account
+</button>
+
+<button id="flashGuest" style="
+margin-top:15px;background:none;border:0;color:#aaa">
+Continue as guest
+</button>
+
+<p id="flashMsg" style="font-size:13px;color:#aaa;min-height:18px"></p>
+
+</div>
+</div>
+`;
+
+document.body.appendChild(box);
+
+const email = document.getElementById("flashEmail");
+const password = document.getElementById("flashPassword");
+const msg = document.getElementById("flashMsg");
+const authBox = document.getElementById("flashAuth");
+
+document.getElementById("flashSignup").onclick = async () => {
+  if (!email.value || !password.value) {
+    msg.textContent = "Email aur password bharo.";
+    return;
+  }
+
+  try {
+    await createUserWithEmailAndPassword(
+      auth,
+      email.value.trim(),
+      password.value
+    );
+    msg.textContent = "Account created! 🎉";
+  } catch (error) {
+    msg.textContent = error.message.replace("Firebase: ", "");
+  }
+};
+
+document.getElementById("flashLogin").onclick = async () => {
+  if (!email.value || !password.value) {
+    msg.textContent = "Email aur password bharo.";
+    return;
+  }
+
+  try {
+    await signInWithEmailAndPassword(
+      auth,
+      email.value.trim(),
+      password.value
+    );
+    msg.textContent = "Login successful! ✅";
+  } catch (error) {
+    msg.textContent = "Login failed. Email/password check karo.";
+  }
+};
+
+document.getElementById("flashGuest").onclick = () => {
+  authBox.style.display = "none";
+};
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    authBox.style.display = "none";
+    console.log("Logged in:", user.email);
+  }
+});
 </script>
 </body>
 </html>
