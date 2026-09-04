@@ -1270,10 +1270,23 @@ onAuthStateChanged(auth,(user)=>{
 
     authBox.style.display="none";
 
-    console.log(
-      "Logged in:",
-      user.email
-    );
+    const name = user.email.split("@")[0];
+
+    const profileName =
+      document.querySelector(".profile h2");
+
+    const profileUsername =
+      document.querySelector(".profile p");
+
+    if(profileName){
+      profileName.textContent = name + " ✨";
+    }
+
+    if(profileUsername){
+      profileUsername.textContent = "@" + name;
+    }
+
+    console.log("Logged in:", user.email);
 
   }
 
