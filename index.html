@@ -1280,6 +1280,28 @@ onAuthStateChanged(auth,(user)=>{
 });
 
 </script>
+<!-- REAL PROFILE -->
+<script type="module">
+import {
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
+const profileName = document.querySelector(".profile h2");
+const profileUsername = document.querySelector(".profile p");
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    const name = user.email.split("@")[0];
+
+    if (profileName) {
+      profileName.textContent = name + " ✨";
+    }
+
+    if (profileUsername) {
+      profileUsername.textContent = "@" + name;
+    }
+  }
+});
+</script>
 </body>
  </html>
