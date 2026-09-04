@@ -21,51 +21,7 @@ h2{font-size:21px;margin:23px 0 12px}.stories{display:flex;gap:15px;overflow:aut
 <body>
 <div class="app">
 <aside class="panel sidebar">
- <div class="logo"><div class="ghost">👻</div><span>Flash</span></div>
- <button class="create" onclick="openSnap()">＋ Create Snap</button>
- <nav class="nav">
-  <button class="active" onclick="showHome(this)"><span>⌂</span><b>Home</b></button>
-  <button onclick="scrollToId('stories')"><span>◉</span><b>Stories</b></button>
-  <button onclick="alert('Spotlight is ready for your best public snaps!')"><span>▷</span><b>Spotlight</b></button>
-  <button onclick="openChat()"><span>▢</span><b>Chat</b></button>
-  <button onclick="alert('Friends: Ananya, Rohan, Priya, Aman, Neha and Karan')"><span>♧</span><b>Friends</b></button>
-  <button onclick="alert('You have 3 new notifications 🔔')"><span>♧</span><b>Notifications</b></button>
-  <button onclick="openProfile()"><span>♙</span><b>Profile</b></button>
-  <button onclick="toggleTheme()"><span>☼</span><b>Theme</b></button>
- </nav>
- <div class="user"><div class="avatar">S</div><div class="uinfo"><b>Sanjeet</b><small style="display:block;color:#999">Online</small></div></div>
-</aside>
-
-<main class="panel main">
- <div class="top"><input id="search" class="search" placeholder="⌕ Search friends, stories & more..." oninput="filterSnaps()"><button class="iconbtn" onclick="alert('Friend requests: 2')">♧</button><button class="iconbtn" onclick="alert('Notifications: 3 new')">♧</button><div class="avatar">S</div></div>
- <section id="stories"><h2>Stories <small style="float:right;color:#ffe000;font-size:13px">View All ›</small></h2>
- <div class="stories">
-  <div class="story" onclick="openSnap()"><div class="ring"><div>＋</div></div>Add Story</div>
-  <div class="story" onclick="story('Ananya')"><div class="ring"><div>👩</div></div>Ananya</div><div class="story" onclick="story('Rohan')"><div class="ring"><div>👨</div></div>Rohan</div>
-  <div class="story" onclick="story('Priya')"><div class="ring"><div>👩</div></div>Priya</div><div class="story" onclick="story('Aman')"><div class="ring"><div>🧑</div></div>Aman</div>
-  <div class="story" onclick="story('Neha')"><div class="ring"><div>👩</div></div>Neha</div><div class="story" onclick="story('Karan')"><div class="ring"><div>🧑</div></div>Karan</div>
- </div></section>
- <h2>Friends Snaps</h2><div class="snapgrid" id="snapgrid">
-  <div class="snap" data-name="Ananya"><div class="meta">👩 Ananya · 2m ago</div><div class="more">⋮</div><div class="snaptext">Sunset vibes 🌅</div></div>
-  <div class="snap" data-name="Rohan"><div class="meta">👨 Rohan · 15m ago</div><div class="more">⋮</div><div class="snaptext">Keep going. 💪</div></div>
-  <div class="snap" data-name="Priya"><div class="meta">👩 Priya · 1h ago</div><div class="more">⋮</div><div class="snaptext">Mountain mood 😍</div></div>
-  <div class="snap" data-name="Aman"><div class="meta">🧑 Aman · 2h ago</div><div class="more">⋮</div><div class="snaptext">Night talks &gt;&gt;</div></div>
- </div>
-</main>
-
-<aside class="panel right" id="chatPanel">
- <h2>Chat <span style="float:right;cursor:pointer" onclick="newChat()">✎</span></h2>
- <input class="chatsearch" placeholder="⌕ Search chats..." oninput="filterChats(this.value)">
- <div id="chats">
-  <div class="chat" data-chat="Ananya" onclick="openChat('Ananya')"><div class="avatar">A</div><div class="chatinfo"><b>Ananya</b><small>Delivered · just now</small></div><div>🔥 12</div></div>
-  <div class="chat" data-chat="Rohan" onclick="openChat('Rohan')"><div class="avatar">R</div><div class="chatinfo"><b>Rohan</b><small>New Snap · 1m</small></div><div>😊</div></div>
-  <div class="chat" data-chat="Priya" onclick="openChat('Priya')"><div class="avatar">P</div><div class="chatinfo"><b>Priya</b><small style="color:#0fda75">Typing...</small></div><div>💛</div></div>
-  <div class="chat" data-chat="Aman" onclick="openChat('Aman')"><div class="avatar">A</div><div class="chatinfo"><b>Aman</b><small>Delivered · 10m</small></div><div>😊</div></div>
-  <div class="chat" data-chat="Neha" onclick="openChat('Neha')"><div class="avatar">N</div><div class="chatinfo"><b>Neha</b><small>Opened · 30m</small></div><div>🔥</div></div>
- </div>
-</aside>
-</div>
-
+ <div class="logo"><div class="ghost"aa
 <div class="mobile"><button>⌂</button><button onclick="scrollToId('stories')">◉</button><button class="cam" onclick="openSnap()">＋</button><button onclick="openChat()">▢</button><button onclick="openProfile()">♙</button></div>
 
 <div class="modal" id="modal"><div class="box">
