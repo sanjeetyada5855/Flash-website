@@ -1,357 +1,253 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Flash — Social App</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#0b0b0f;color:#fff}
-button,input{font:inherit}button{cursor:pointer;border:0}
-.app{min-height:100vh;display:flex}.side{width:230px;background:#111116;border-right:1px solid #292930;padding:22px 14px;position:fixed;height:100vh}
-.logo{font-size:28px;font-weight:800;text-align:center;margin-bottom:30px}.logo span{color:#ffe600}
-.nav button{display:block;width:100%;text-align:left;background:transparent;color:#ddd;padding:14px;border-radius:12px;margin:5px 0}
-.nav button:hover{background:#202027}.main{margin-left:230px;width:calc(100% - 230px);padding:25px;max-width:1200px}
-.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.top h1{margin:0}
-.avatar{width:46px;height:46px;border-radius:50%;background:#ffe600;color:#111;display:grid;place-items:center;font-weight:800}
-.stories{display:flex;gap:14px;overflow:auto;padding:8px 0 22px}.story{min-width:78px;text-align:center}.story .avatar{margin:auto;border:3px solid #ffe600}.story small{display:block;margin-top:6px;color:#bbb;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.card{background:#141419;border:1px solid #28282f;border-radius:18px;padding:18px;margin-bottom:18px}
-.snap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
-.snap{height:240px;border-radius:15px;background:linear-gradient(135deg,#25252d,#101014);display:flex;align-items:flex-end;padding:16px;position:relative;overflow:hidden}
-.snap:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,#ffe60033,transparent 35%)}
-.snap div{position:relative;z-index:1}.snap b{display:block}.muted{color:#999}
-.row{display:flex;gap:10px;align-items:center}.actions{display:flex;gap:8px;margin-top:12px}.btn{background:#ffe600;color:#111;padding:11px 16px;border-radius:11px;font-weight:700}.darkbtn{background:#25252d;color:#fff;padding:11px 16px;border-radius:11px}
-.search{width:100%;padding:13px;background:#19191f;border:1px solid #303039;color:#fff;border-radius:12px;margin-bottom:15px}
-.modal{display:none;position:fixed;inset:0;background:#000b;z-index:20;align-items:center;justify-content:center;padding:20px}.box{width:min(500px,100%);background:#15151b;border:1px solid #333;border-radius:20px;padding:24px;position:relative}.close{position:absolute;right:15px;top:12px;background:transparent;color:#fff;font-size:25px}
-.box input{width:100%;padding:13px;margin:7px 0;background:#202027;border:1px solid #333;color:#fff;border-radius:10px}.box button.mainbtn{width:100%;padding:13px;margin-top:9px;border-radius:10px;background:#ffe600;font-weight:800}
-.auth{z-index:50}.auth .box{text-align:center}.auth h1{font-size:34px}.auth h1 span{color:#ffe600}.error{color:#ff7777;min-height:22px;margin:8px}
-.profile{text-align:center}.big{width:90px;height:90px;border-radius:50%;background:#ffe600;color:#111;display:grid;place-items:center;font-size:34px;font-weight:800;margin:5px auto 12px}.stats{display:flex;justify-content:space-around;margin:22px 0}.stat b,.stat small{display:block}.stat small{color:#aaa;margin-top:5px}
-.chatlist .person{padding:13px;border-bottom:1px solid #292930;display:flex;justify-content:space-between;align-items:center}
-.messages{height:300px;overflow:auto;background:#0e0e12;border-radius:12px;padding:12px}.msg{padding:9px 12px;border-radius:14px;background:#25252d;margin:7px 0;max-width:75%}.mine{margin-left:auto;background:#ffe600;color:#111}
-.chatinput{display:flex;gap:8px;margin-top:10px}.chatinput input{margin:0}
-.bottom{display:none}.hidden{display:none!important}
-@media(max-width:700px){.side{display:none}.main{margin-left:0;width:100%;padding:16px;padding-bottom:85px}.bottom{display:flex;position:fixed;bottom:0;left:0;right:0;background:#111116;border-top:1px solid #292930;z-index:10}.bottom button{flex:1;background:transparent;color:#ddd;padding:14px 5px}.top h1{font-size:24px}}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#0b0d12;color:#f5f7fb}
+button,input{font:inherit}button{cursor:pointer;border:0}.app{min-height:100vh;display:flex}
+.side{width:230px;background:#12151d;border-right:1px solid #242936;padding:18px;position:fixed;inset:0 auto 0 0}
+.logo{font-size:30px;font-weight:900;margin:5px 8px 28px}.logo span{color:#ffd21f}
+.nav button{width:100%;padding:13px;margin:4px 0;border-radius:12px;text-align:left;background:transparent;color:#cbd0da}.nav button:hover,.nav .active{background:#202532;color:#fff}
+.main{margin-left:230px;width:calc(100% - 230px);max-width:1100px;padding:25px;margin-right:auto}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}.top h1{margin:0}
+.card{background:#12151d;border:1px solid #242936;border-radius:20px;padding:18px;margin-bottom:18px}
+.row{display:flex;gap:10px;align-items:center}.grow{flex:1}.muted{color:#8f98a8}.btn{padding:10px 14px;border-radius:12px;background:#ffd21f;color:#111;font-weight:800}.ghost{padding:10px 14px;border-radius:12px;background:#202532;color:#fff}.danger{background:#ff5d6c;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.story{height:190px;border-radius:18px;padding:14px;display:flex;align-items:flex-end;background:linear-gradient(160deg,#2a3345,#151820);border:1px solid #303646}
+.avatar{width:45px;height:45px;border-radius:50%;display:grid;place-items:center;background:#ffd21f;color:#111;font-weight:900;flex:none}
+.avatar.sm{width:34px;height:34px;font-size:13px}
+.search{width:100%;padding:13px;border-radius:12px;border:1px solid #303646;background:#0d1016;color:#fff}
+.auth{position:fixed;inset:0;background:#080a0f;display:grid;place-items:center;padding:20px;z-index:50}.authbox{width:min(420px,100%);background:#12151d;border:1px solid #303646;border-radius:22px;padding:24px}.auth input{display:block;width:100%;margin:9px 0;padding:13px;border-radius:12px;border:1px solid #303646;background:#0d1016;color:#fff}
+.auth .btn{width:100%;margin-top:8px}.hidden{display:none!important}
+.modal{position:fixed;inset:0;background:#000b;display:grid;place-items:center;padding:18px;z-index:40}.modalbox{width:min(650px,100%);max-height:90vh;overflow:auto;background:#12151d;border:1px solid #303646;border-radius:22px;padding:20px}
+#cameraVideo{width:100%;max-height:55vh;object-fit:cover;border-radius:16px;background:#000}.preview{max-width:100%;max-height:320px;border-radius:16px;margin-top:12px}
+.chatbox{height:58vh;overflow:auto;background:#0d1016;border-radius:16px;padding:14px}.msg{padding:9px 12px;border-radius:14px;margin:7px 0;max-width:78%;background:#202532}.mine{margin-left:auto;background:#ffd21f;color:#111}
+.bottom{display:none}.toast{position:fixed;bottom:20px;right:20px;background:#fff;color:#111;padding:12px 16px;border-radius:12px;z-index:100;box-shadow:0 8px 30px #0008}
+@media(max-width:700px){.side{display:none}.main{margin:0;width:100%;padding:15px;padding-bottom:85px}.bottom{display:flex;position:fixed;bottom:0;left:0;right:0;background:#12151d;border-top:1px solid #242936;z-index:30}.bottom button{flex:1;background:none;color:#aaa;padding:12px 4px}.bottom .active{color:#ffd21f}.top{margin-bottom:14px}.grid{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
-<div class="app">
+<div id="auth" class="auth">
+ <div class="authbox">
+  <div class="logo">⚡ Flash</div>
+  <p class="muted">Username se signup/login karo.</p>
+  <input id="name" placeholder="Your name (signup)">
+  <input id="username" placeholder="Username">
+  <input id="password" type="password" placeholder="Password (6+ characters)">
+  <button id="signup" class="btn">Create account</button>
+  <button id="login" class="ghost" style="width:100%;margin-top:8px">Login</button>
+  <p id="authMsg" class="muted"></p>
+ </div>
+</div>
+
 <aside class="side">
-  <div class="logo">⚡ <span>Flash</span></div>
-  <div class="nav">
-    <button onclick="showPage('home')">🏠 Home</button>
-    <button onclick="showPage('friends')">👥 Friends</button>
-    <button onclick="showPage('chat')">💬 Chat</button>
-    <button onclick="openSnap()">📸 Create Snap</button>
-    <button onclick="openProfile()">👤 Profile</button>
-    <button onclick="toggleTheme()">🌙 Theme</button>
-    <button onclick="logout()">🚪 Logout</button>
-  </div>
+ <div class="logo">⚡ Flash</div>
+ <div class="nav">
+  <button class="active" data-page="home">🏠 Home</button>
+  <button data-page="friends">👥 Friends</button>
+  <button data-page="chat">💬 Chat</button>
+  <button data-page="search">🔎 Search</button>
+  <button data-page="profile">👤 Profile</button>
+  <button id="cameraBtn">📷 Camera</button>
+  <button id="themeBtn">🌙 Theme</button>
+  <button id="logout" class="danger">↪ Logout</button>
+ </div>
 </aside>
 
 <main class="main">
-  <div class="top">
-    <h1 id="pageTitle">Flash</h1>
-    <button class="avatar" onclick="openProfile()" id="topAvatar">F</button>
+ <div class="top"><h1 id="title">Home</h1><div class="row"><span id="online" class="muted">● Offline</span></div></div>
+
+ <section id="home" class="page">
+  <div class="card"><h2>Stories</h2><div id="stories" class="grid"></div></div>
+  <div class="card"><h2>Friends Snaps</h2><div id="snaps" class="grid"></div></div>
+ </section>
+
+ <section id="friends" class="page hidden">
+  <div class="card"><h2>Find friends</h2><input id="friendSearch" class="search" placeholder="Search username"><div id="friendResults" style="margin-top:14px"></div></div>
+  <div class="card"><h2>My friends</h2><div id="friendsList"></div></div>
+ </section>
+
+ <section id="chat" class="page hidden">
+  <div class="card"><h2>Chats</h2><div id="chatList"></div></div>
+ </section>
+
+ <section id="search" class="page hidden">
+  <div class="card"><h2>Search users</h2><input id="userSearch" class="search" placeholder="Username"><div id="userResults" style="margin-top:14px"></div></div>
+ </section>
+
+ <section id="profile" class="page hidden">
+  <div class="card">
+   <div class="row"><div id="profileAvatar" class="avatar">F</div><div><h2 id="profileName">Flash User</h2><p id="profileUsername" class="muted">@username</p></div></div>
+   <hr style="border-color:#242936;margin:18px 0">
+   <p class="muted">Your email is kept hidden from the profile UI.</p>
   </div>
-
-  <section id="homePage">
-    <div class="card">
-      <h2>Stories</h2>
-      <div class="stories" id="stories"></div>
-    </div>
-    <input class="search" id="searchInput" placeholder="🔍 Search snaps..." oninput="filterSnaps()">
-    <div class="card">
-      <div class="row" style="justify-content:space-between">
-        <h2>Friends Snaps</h2><button class="btn" onclick="openSnap()">+ Snap</button>
-      </div>
-      <div class="snap-grid" id="snapGrid"></div>
-    </div>
-  </section>
-
-  <section id="friendsPage" class="hidden">
-    <div class="card">
-      <h2>👥 Friends</h2>
-      <input class="search" id="friendSearch" placeholder="Search by email/username">
-      <button class="btn" onclick="findUser()">Find User</button>
-      <div id="friendResult" style="margin-top:15px"></div>
-      <div id="friendsList"></div>
-    </div>
-  </section>
-
-  <section id="chatPage" class="hidden">
-    <div class="card">
-      <h2>💬 Chats</h2>
-      <div id="chatList" class="chatlist"></div>
-      <p class="muted" id="chatHint">Add a friend to start a chat.</p>
-    </div>
-  </section>
+ </section>
 </main>
-</div>
 
 <nav class="bottom">
-<button onclick="showPage('home')">🏠</button>
-<button onclick="showPage('friends')">👥</button>
-<button onclick="openSnap()">📸</button>
-<button onclick="showPage('chat')">💬</button>
-<button onclick="openProfile()">👤</button>
+ <button class="active" data-page="home">🏠</button><button data-page="friends">👥</button><button data-page="chat">💬</button><button data-page="search">🔎</button><button data-page="profile">👤</button>
 </nav>
 
-<!-- AUTH -->
-<div class="modal auth" id="authBox">
-<div class="box">
-<h1>⚡ <span>Flash</span></h1>
-<p class="muted">Create your account or login</p>
-<input id="authName" placeholder="Name (for new account)">
-<input id="authUsername" placeholder="Username (for new account)">
-<input id="authEmail" type="email" placeholder="Email">
-<input id="authPassword" type="password" placeholder="Password">
-<div class="error" id="authError"></div>
-<button class="mainbtn" id="signupBtn">Create Account</button>
-<button class="mainbtn" id="loginBtn">Login</button>
-<button class="darkbtn" style="width:100%;margin-top:9px" onclick="guest()">Continue as Guest</button>
-</div>
+<div id="cameraModal" class="modal hidden">
+ <div class="modalbox">
+  <div class="row"><h2 class="grow">Create Snap</h2><button id="closeCamera" class="ghost">✕</button></div>
+  <video id="cameraVideo" autoplay playsinline></video>
+  <canvas id="canvas" class="hidden"></canvas>
+  <div class="row" style="margin-top:12px"><button id="flip" class="ghost">🔄 Flip</button><button id="capture" class="btn">📸 Capture</button><label class="ghost">🖼️ Gallery<input id="gallery" type="file" accept="image/*" hidden></label></div>
+  <select id="filter" class="search" style="margin-top:12px"><option value="none">No filter</option><option value="grayscale(1)">Mono</option><option value="sepia(.7)">Warm</option><option value="contrast(1.35) saturate(1.3)">Bright</option></select>
+  <div class="row" style="margin-top:12px"><input id="snapText" class="search" placeholder="Add text"><button id="postSnap" class="btn">Post</button></div>
+  <img id="preview" class="preview hidden">
+  <p id="cameraMsg" class="muted"></p>
+ </div>
 </div>
 
-<!-- SNAP -->
-<div class="modal" id="snapModal">
-<div class="box">
-<button class="close" onclick="closeModal('snapModal')">×</button>
-<h2>📸 Create Snap</h2>
-<input id="snapText" placeholder="Write a caption...">
-<input id="snapFile" type="file" accept="image/*" onchange="previewImage(event)">
-<img id="preview" style="display:none;width:100%;max-height:280px;object-fit:cover;border-radius:12px;margin-top:10px">
-<button class="mainbtn" onclick="createSnap()">Post Snap</button>
-<p class="muted">Image preview is local in this demo. Persistent image storage needs Firebase Storage.</p>
-</div>
+<div id="chatModal" class="modal hidden">
+ <div class="modalbox">
+  <div class="row"><h2 id="chatTitle" class="grow">Chat</h2><button id="closeChat" class="ghost">✕</button></div>
+  <div id="messages" class="chatbox"></div>
+  <div class="row" style="margin-top:10px"><input id="messageInput" class="search" placeholder="Message..."><button id="sendMessage" class="btn">Send</button></div>
+ </div>
 </div>
 
-<!-- PROFILE -->
-<div class="modal" id="profileModal">
-<div class="box profile">
-<button class="close" onclick="closeModal('profileModal')">×</button>
-<div class="big" id="profileAvatar">F</div>
-<h2 id="profileName">Flash User ✨</h2>
-<p class="muted" id="profileUsername">@flashuser</p>
-<p class="muted" id="profileEmail"></p>
-<div class="stats">
-<div class="stat"><b id="snapCount">0</b><small>Snaps</small></div>
-<div class="stat"><b id="friendCount">0</b><small>Friends</small></div>
-<div class="stat"><b>0</b><small>Followers</small></div>
-</div>
-<button class="darkbtn" onclick="logout()">🚪 Logout</button>
-</div>
-</div>
-
-<!-- CHAT -->
-<div class="modal" id="chatModal">
-<div class="box">
-<button class="close" onclick="closeModal('chatModal')">×</button>
-<h2 id="chatTitle">Chat</h2>
-<div class="messages" id="messages"></div>
-<div class="chatinput">
-<input id="messageInput" placeholder="Type a message...">
-<button class="btn" onclick="sendMessage()">Send</button>
-</div>
-</div>
-</div>
+<div id="toast" class="toast hidden"></div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import {
-  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-  onAuthStateChanged, signOut
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-import {
-  getFirestore, doc, setDoc, getDoc, collection, addDoc, query,
-  where, getDocs, orderBy, onSnapshot, serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import {initializeApp} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+import {getFirestore,doc,setDoc,getDoc,collection,query,where,getDocs,addDoc,onSnapshot,serverTimestamp,orderBy} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyC_QE75QCiRJXGL9xew7m1-yQXdZLtvDIY",
-  authDomain: "fash-89525.firebaseapp.com",
-  projectId: "fash-89525",
-  storageBucket: "fash-89525.firebasestorage.app",
-  messagingSenderId: "887751675734",
-  appId: "1:887751675734:web:ec4adc251909fe006090f7"
+const firebaseConfig={
+ apiKey:"AIzaSyC_QE75QCiRJXGL9xewm1-yQXdZLtvDIY",
+ authDomain:"fash-89525.firebaseapp.com",
+ projectId:"fash-89525",
+ storageBucket:"fash-89525.firebasestorage.app",
+ messagingSenderId:"887751675734",
+ appId:"1:887751675734:web:ec4adc251909fe006090f7"
 };
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
+const $=id=>document.getElementById(id);
+let currentUser=null,currentProfile=null,chatUser=null,unsubscribeChat=null,stream=null,facing="user",snapData=null;
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+function toast(t){$("toast").textContent=t;$("toast").classList.remove("hidden");setTimeout(()=>$("toast").classList.add("hidden"),2200)}
+function internalEmail(u){return u.toLowerCase().replace(/[^a-z0-9._-]/g,"")+"@flash-login.app"}
+function cleanUser(){return $("username").value.trim().toLowerCase().replace(/^@/,"")}
+async function signup(){
+ const n=$("name").value.trim(),u=cleanUser(),p=$("password").value;
+ if(!n||!u||p.length<6){$("authMsg").textContent="Name, username aur 6+ character password do.";return}
+ try{
+  const exists=await getDocs(query(collection(db,"users"),where("usernameLower","==",u)));
+  if(!exists.empty){$("authMsg").textContent="Username already taken.";return}
+  const c=await createUserWithEmailAndPassword(auth,internalEmail(u),p);
+  await setDoc(doc(db,"users",c.user.uid),{uid:c.user.uid,name:n,username:u,usernameLower:u,createdAt:serverTimestamp()});
+  await setDoc(doc(db,"usernames",u),{uid:c.user.uid});
+ }catch(e){$("authMsg").textContent=e.message}
+}
+async function login(){
+ const u=cleanUser(),p=$("password").value;
+ if(!u||!p){$("authMsg").textContent="Username aur password do.";return}
+ try{await signInWithEmailAndPassword(auth,internalEmail(u),p)}catch(e){$("authMsg").textContent="Login failed. Username/password check karo."}
+}
+$("signup").onclick=signup;$("login").onclick=login;$("logout").onclick=()=>signOut(auth);
 
-let currentUser = null;
-let currentChatUid = null;
-let guestMode = false;
-let localSnaps = [
- {user:"Flash Team",caption:"Welcome to Flash ⚡"},
- {user:"Your Friend",caption:"Have a great day! ✨"},
- {user:"Flash",caption:"Create your first snap 📸"}
-];
+function showPage(page){
+ document.querySelectorAll(".page").forEach(x=>x.classList.add("hidden"));
+ $(page).classList.remove("hidden");$("title").textContent=page[0].toUpperCase()+page.slice(1);
+ document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+ if(page==="friends")loadFriends(); if(page==="chat")loadChatList(); if(page==="home")loadHome();
+}
+document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
 
-const authBox = document.getElementById("authBox");
-
-function showAuthError(msg){document.getElementById("authError").textContent=msg||"";}
-
-document.getElementById("signupBtn").onclick = async ()=>{
-  const name=document.getElementById("authName").value.trim();
-  const username=document.getElementById("authUsername").value.trim().replace(/\s+/g,"");
-  const email=document.getElementById("authEmail").value.trim();
-  const password=document.getElementById("authPassword").value;
-  showAuthError("");
-  if(!name||!username||!email||password.length<6){showAuthError("Name, username, email and password (6+ characters) are required.");return;}
-  try{
-    const cred=await createUserWithEmailAndPassword(auth,email,password);
-    await setDoc(doc(db,"users",cred.user.uid),{
-      uid:cred.user.uid,name,username:username.startsWith("@")?username.slice(1):username,
-      email,createdAt:serverTimestamp()
-    });
-  }catch(e){showAuthError(e.message);}
-};
-
-document.getElementById("loginBtn").onclick = async ()=>{
-  const email=document.getElementById("authEmail").value.trim();
-  const password=document.getElementById("authPassword").value;
-  showAuthError("");
-  if(!email||!password){showAuthError("Enter email and password.");return;}
-  try{await signInWithEmailAndPassword(auth,email,password);}
-  catch(e){showAuthError(e.message);}
-};
-
-window.guest=()=>{guestMode=true;authBox.style.display="none";loadGuest();};
-
-onAuthStateChanged(auth, async (user)=>{
-  currentUser=user;
-  if(user){
-    guestMode=false;
-    authBox.style.display="none";
-    await loadProfile(user);
-    loadFriends();
-    loadSnapsFromFirebase();
-  }
+onAuthStateChanged(auth,async user=>{
+ currentUser=user;
+ if(!user){$("auth").classList.remove("hidden");$("online").textContent="● Offline";return}
+ $("auth").classList.add("hidden");$("online").textContent="● Online";
+ const s=await getDoc(doc(db,"users",user.uid)); currentProfile=s.exists()?s.data():null;
+ if(currentProfile){$("profileName").textContent=currentProfile.name+" ✨";$("profileUsername").textContent="@"+currentProfile.username;$("profileAvatar").textContent=currentProfile.name.charAt(0).toUpperCase()}
+ loadHome();
 });
 
-async function loadProfile(user){
-  let data=null;
-  try{const s=await getDoc(doc(db,"users",user.uid));if(s.exists())data=s.data();}catch(e){}
-  const name=data?.name || user.email.split("@")[0];
-  const username=data?.username || user.email.split("@")[0];
-  setProfileUI(name,username,user.email);
-}
-function setProfileUI(name,username,email){
-  document.getElementById("profileName").textContent=name+" ✨";
-  document.getElementById("profileUsername").textContent="@"+username;
-  document.getElementById("profileEmail").textContent=email||"Guest account";
-  document.getElementById("profileAvatar").textContent=(name||"F").charAt(0).toUpperCase();
-  document.getElementById("topAvatar").textContent=(name||"F").charAt(0).toUpperCase();
+function loadHome(){
+ const now=Date.now();
+ const stories=[
+  {name:"Your Story",text:"Add a new snap",own:true},
+  {name:"Flash Team",text:"Welcome to Flash"},
+  {name:"Friends",text:"Share moments"}
+ ];
+ $("stories").innerHTML=stories.map(s=>`<div class="story" ${s.own?'id="yourStory"':''}><div><b>${s.name}</b><div class="muted">${s.text}</div></div></div>`).join("");
+ document.querySelector("#yourStory")?.addEventListener("click",openCamera);
+ $("snaps").innerHTML=`<div class="story"><div><b>📸 Create a Snap</b><div class="muted">Camera, filter, text & post</div></div></div>`;
+ document.querySelector("#snaps .story").onclick=openCamera;
 }
 
-window.logout=async()=>{
-  try{await signOut(auth);}catch(e){}
-  guestMode=false;
-  authBox.style.display="flex";
-  closeModal("profileModal");
-};
-
-async function findUser(){
-  const term=document.getElementById("friendSearch").value.trim().toLowerCase();
-  const out=document.getElementById("friendResult");
-  out.innerHTML="";
-  if(!term){out.textContent="Enter a username or email.";return;}
-  if(!currentUser){out.textContent="Login first.";return;}
-  try{
-    const q=query(collection(db,"users"),where("email","==",term));
-    const snap=await getDocs(q);
-    let found=[];
-    snap.forEach(d=>found.push(d.data()));
-    if(!found.length){
-      const q2=query(collection(db,"users"),where("username","==",term.replace("@","")));
-      const s2=await getDocs(q2);s2.forEach(d=>found.push(d.data()));
-    }
-    if(!found.length){out.textContent="User not found.";return;}
-    const u=found[0];
-    if(u.uid===currentUser.uid){out.textContent="That's your own account.";return;}
-    out.innerHTML=`<div class="card"><div class="row"><div class="avatar">${(u.name||"F")[0].toUpperCase()}</div><div><b>${escapeHtml(u.name)}</b><div class="muted">@${escapeHtml(u.username||"user")}</div></div></div><div class="actions"><button class="btn" id="addFriendBtn">Add Friend</button><button class="darkbtn" id="openChatBtn">Chat</button></div></div>`;
-    document.getElementById("addFriendBtn").onclick=()=>addFriend(u);
-    document.getElementById("openChatBtn").onclick=()=>openChat(u);
-  }catch(e){out.textContent="Search error. Check Firestore setup.";}
+async function searchUsers(term,target){
+ target.innerHTML="";
+ term=term.trim().toLowerCase().replace(/^@/,""); if(!term)return;
+ const q=query(collection(db,"users"),where("usernameLower","==",term)); const r=await getDocs(q);
+ if(r.empty){target.innerHTML='<p class="muted">User not found.</p>';return}
+ r.forEach(d=>renderUser(d.data(),target));
 }
-
+function renderUser(u,target){
+ const div=document.createElement("div");div.className="row card";div.innerHTML=`<div class="avatar sm">${u.name[0].toUpperCase()}</div><div class="grow"><b>${u.name}</b><div class="muted">@${u.username}</div></div>`;
+ if(u.uid!==currentUser.uid){const b=document.createElement("button");b.className="btn";b.textContent="Add";b.onclick=()=>addFriend(u);div.appendChild(b)}
+ target.appendChild(div);
+}
 async function addFriend(u){
-  try{
-    await setDoc(doc(db,"users",currentUser.uid,"friends",u.uid),{uid:u.uid,name:u.name,username:u.username,email:u.email});
-    await setDoc(doc(db,"users",u.uid,"friends",currentUser.uid),{uid:currentUser.uid,name:(await getDoc(doc(db,"users",currentUser.uid))).data()?.name||currentUser.email.split("@")[0],username:(await getDoc(doc(db,"users",currentUser.uid))).data()?.username||currentUser.email.split("@")[0],email:currentUser.email});
-    loadFriends();alert("Friend added!");
-  }catch(e){alert("Could not add friend. Check Firestore Security Rules.");}
+ await setDoc(doc(db,"users",currentUser.uid,"friends",u.uid),{uid:u.uid,name:u.name,username:u.username,addedAt:serverTimestamp()});
+ toast("Friend added");loadFriends();
+}
+$("friendSearch").oninput=e=>searchUsers(e.target.value,$("friendResults"));
+$("userSearch").oninput=e=>searchUsers(e.target.value,$("userResults"));
+
+async function loadFriends(){
+ const r=await getDocs(collection(db,"users",currentUser.uid,"friends"));$("friendsList").innerHTML="";
+ if(r.empty){$("friendsList").innerHTML='<p class="muted">No friends yet.</p>';return}
+ r.forEach(d=>{const u=d.data(),x=document.createElement("div");x.className="row card";x.innerHTML=`<div class="avatar sm">${u.name[0].toUpperCase()}</div><div class="grow"><b>${u.name}</b><div class="muted">@${u.username}</div></div><button class="btn">Chat</button>`;x.querySelector("button").onclick=()=>openChat(u);$("friendsList").appendChild(x)})
+}
+async function loadChatList(){
+ const r=await getDocs(collection(db,"users",currentUser.uid,"friends"));$("chatList").innerHTML="";
+ if(r.empty){$("chatList").innerHTML='<p class="muted">Add a friend first.</p>';return}
+ r.forEach(d=>{const u=d.data(),x=document.createElement("div");x.className="row card";x.innerHTML=`<div class="avatar sm">${u.name[0].toUpperCase()}</div><div class="grow"><b>${u.name}</b><div class="muted">@${u.username}</div></div><button class="btn">Open</button>`;x.querySelector("button").onclick=()=>openChat(u);$("chatList").appendChild(x)})
 }
 
-function loadFriends(){
-  if(!currentUser)return;
-  onSnapshot(collection(db,"users",currentUser.uid,"friends"),snap=>{
-    const list=document.getElementById("friendsList"),chat=document.getElementById("chatList");
-    list.innerHTML="";chat.innerHTML="";
-    let n=0;
-    snap.forEach(d=>{
-      const u=d.data();n++;
-      list.innerHTML+=`<div class="person row"><div><b>${escapeHtml(u.name)}</b><div class="muted">@${escapeHtml(u.username||"user")}</div></div><button class="darkbtn" data-chat="${u.uid}">Chat</button></div>`;
-      chat.innerHTML+=`<div class="person"><div><b>${escapeHtml(u.name)}</b><div class="muted">@${escapeHtml(u.username||"user")}</div></div><button class="darkbtn" data-chat="${u.uid}">Open</button></div>`;
-    });
-    document.getElementById("friendCount").textContent=n;
-    [...document.querySelectorAll("[data-chat]")].forEach(b=>b.onclick=async()=>{const s=await getDoc(doc(db,"users",b.dataset.chat));if(s.exists())openChat(s.data());});
-    document.getElementById("chatHint").style.display=n?"none":"block";
-  });
+function chatId(a,b){return [a,b].sort().join("_")}
+function openChat(u){
+ chatUser=u;$("chatTitle").textContent="Chat with "+u.name;$("chatModal").classList.remove("hidden");
+ const cid=chatId(currentUser.uid,u.uid);
+ if(unsubscribeChat)unsubscribeChat();
+ const q=query(collection(db,"chats",cid,"messages"),orderBy("createdAt","asc"));
+ unsubscribeChat=onSnapshot(q,s=>{
+  $("messages").innerHTML="";s.forEach(d=>{const m=d.data(),x=document.createElement("div");x.className="msg "+(m.uid===currentUser.uid?"mine":"");x.textContent=m.text||"";$("messages").appendChild(x)});$("messages").scrollTop=$("messages").scrollHeight;
+ });
 }
+$("closeChat").onclick=()=>{$("chatModal").classList.add("hidden");if(unsubscribeChat)unsubscribeChat()};
+async function sendMessage(){
+ if(!chatUser)return;const text=$("messageInput").value.trim();if(!text)return;
+ const cid=chatId(currentUser.uid,chatUser.uid);
+ await addDoc(collection(db,"chats",cid,"messages"),{uid:currentUser.uid,text,createdAt:serverTimestamp()});
+ $("messageInput").value="";
+}
+$("sendMessage").onclick=sendMessage;$("messageInput").addEventListener("keydown",e=>{if(e.key==="Enter")sendMessage()});
 
-function chatId(a,b){return [a,b].sort().join("_");}
-async function openChat(u){
-  if(!currentUser){alert("Login first.");return;}
-  currentChatUid=u.uid;
-  document.getElementById("chatTitle").textContent="Chat with "+(u.name||u.email||"Friend");
-  document.getElementById("chatModal").style.display="flex";
-  const ref=collection(db,"chats",chatId(currentUser.uid,u.uid),"messages");
-  onSnapshot(query(ref,orderBy("createdAt","asc")),snap=>{
-    const box=document.getElementById("messages");box.innerHTML="";
-    snap.forEach(d=>{const m=d.data();box.innerHTML+=`<div class="msg ${m.uid===currentUser.uid?"mine":""}">${escapeHtml(m.text||"")}</div>`;});
-    box.scrollTop=box.scrollHeight;
-  });
+async function openCamera(){
+ $("cameraModal").classList.remove("hidden");$("cameraMsg").textContent="";
+ try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:facing},audio:false});$("cameraVideo").srcObject=stream}
+ catch(e){$("cameraMsg").textContent="Camera permission nahi mili. Gallery se image choose kar sakte ho."}
 }
-window.sendMessage=async()=>{
-  const input=document.getElementById("messageInput"),text=input.value.trim();
-  if(!text||!currentUser||!currentChatUid)return;
-  try{await addDoc(collection(db,"chats",chatId(currentUser.uid,currentChatUid),"messages"),{uid:currentUser.uid,text,createdAt:serverTimestamp()});input.value="";}
-  catch(e){alert("Message could not be sent. Check Firestore Security Rules.");}
+function closeCamera(){if(stream)stream.getTracks().forEach(t=>t.stop());stream=null;$("cameraVideo").srcObject=null;$("cameraModal").classList.add("hidden")}
+$("cameraBtn").onclick=openCamera;$("closeCamera").onclick=closeCamera;
+$("flip").onclick=async()=>{facing=facing==="user"?"environment":"user";if(stream){stream.getTracks().forEach(t=>t.stop());}try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:facing},audio:false});$("cameraVideo").srcObject=stream}catch{}};
+$("filter").onchange=e=>$("cameraVideo").style.filter=e.target.value;
+
+$("capture").onclick=()=>{
+ const v=$("cameraVideo"),c=$("canvas");if(!v.videoWidth){toast("Camera ready nahi hai");return}
+ c.width=v.videoWidth;c.height=v.videoHeight;const x=c.getContext("2d");x.filter=$("filter").value;x.drawImage(v,0,0);snapData=c.toDataURL("image/jpeg",.88);$("preview").src=snapData;$("preview").classList.remove("hidden");
 };
+$("gallery").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{snapData=r.result;$("preview").src=snapData;$("preview").classList.remove("hidden")};r.readAsDataURL(f)};
+$("postSnap").onclick=()=>{if(!snapData){toast("Pehle photo capture/select karo");return}toast("Snap preview ready — persistent cloud storage add karne ke liye Firebase Storage chahiye.");};
 
-async function createSnap(){
-  const caption=document.getElementById("snapText").value.trim()||"My new Flash snap ⚡";
-  let name=currentUser?.email?.split("@")[0]||"Guest";
-  if(currentUser){try{const s=await getDoc(doc(db,"users",currentUser.uid));if(s.exists())name=s.data().name||name;}catch(e){}}
-  localSnaps.unshift({user:name,caption});
-  renderSnaps();document.getElementById("snapText").value="";document.getElementById("snapFile").value="";document.getElementById("preview").style.display="none";closeModal("snapModal");
-}
-function renderSnaps(){
-  const grid=document.getElementById("snapGrid");grid.innerHTML="";
-  localSnaps.forEach((s,i)=>grid.innerHTML+=`<div class="snap" data-text="${escapeHtml((s.user+" "+s.caption).toLowerCase())}"><div><b>${escapeHtml(s.user)}</b><span>${escapeHtml(s.caption)}</span></div></div>`);
-  document.getElementById("snapCount").textContent=localSnaps.length;
-}
-function renderStories(){
-  const names=["Your Story","Flash","Friends","Today","Memories"];
-  document.getElementById("stories").innerHTML=names.map((n,i)=>`<div class="story"><div class="avatar">${i===0?"+":n[0]}</div><small>${n}</small></div>`).join("");
-}
-window.filterSnaps=()=>{const t=document.getElementById("searchInput").value.toLowerCase();document.querySelectorAll(".snap").forEach(x=>x.style.display=x.dataset.text.includes(t)?"flex":"none");};
-window.previewImage=(e)=>{const f=e.target.files[0],p=document.getElementById("preview");if(f){p.src=URL.createObjectURL(f);p.style.display="block";}};
-window.openSnap=()=>document.getElementById("snapModal").style.display="flex";
-window.openProfile=()=>document.getElementById("profileModal").style.display="flex";
-window.closeModal=(id)=>document.getElementById(id).style.display="none";
-window.showPage=(p)=>{
-  document.getElementById("homePage").classList.toggle("hidden",p!=="home");
-  document.getElementById("friendsPage").classList.toggle("hidden",p!=="friends");
-  document.getElementById("chatPage").classList.toggle("hidden",p!=="chat");
-  document.getElementById("pageTitle").textContent=p==="home"?"Flash":p==="friends"?"Friends":"Chats";
-};
-window.toggleTheme=()=>document.body.classList.toggle("light");
-function loadGuest(){setProfileUI("Guest","guest","Guest mode");renderSnaps();renderStories();}
-function loadSnapsFromFirebase(){renderSnaps();renderStories();}
-function escapeHtml(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));}
-renderSnaps();renderStories();
+$("themeBtn").onclick=()=>{document.body.classList.toggle("light");document.body.style.background=document.body.classList.contains("light")?"#f4f6fa":"#0b0d12";document.body.style.color=document.body.classList.contains("light")?"#111":"#f5f7fb";toast("Theme changed")};
 </script>
 </body>
-  </html>
+                                                                                                                              </html>
